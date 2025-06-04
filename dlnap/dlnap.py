@@ -316,8 +316,10 @@ def _get_port(location):
    location -- string like http://anyurl:port/whatever/path
    return -- port number
    """
-   port = re.findall('http://.*?:(\d+).*', location)
-   return int(port[0]) if port else 80
+   match = re.search(r'^https?://[^:/]+:(\d+)', location)
+   if match:
+      return int(match.group(1))
+   return 80
 
 
 def _get_control_url(xml, urn):
@@ -378,9 +380,10 @@ def _get_location_url(raw):
     raw -- raw discovery response
     return -- location url string
     """
-    t = re.findall('\n(?i)location:\s*(.*)\r\s*', raw, re.M)
-    if len(t) > 0:
-        return t[0]
+    match = re.search(r'location:\s*([^\r\n]+)', raw, re.IGNORECASE)
+    if match:
+        print(match.group(1).strip())
+        return match.group(1).strip()
     return ''
 
 def _get_friendly_name(xml):
@@ -737,7 +740,7 @@ if __name__ == '__main__':
    timeout = 1
    action = ''
    logLevel = logging.WARN
-   compatibleOnly = True
+   compatibleOnly = False
    ip = ''
    proxy = False
    proxy_port = 8000
