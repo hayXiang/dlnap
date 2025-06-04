@@ -35,7 +35,7 @@ import logging
 import traceback
 import mimetypes
 from contextlib import contextmanager
-
+socket.setdefaulttimeout(5.0)
 
 import os
 py3 = sys.version_info[0] == 3
@@ -737,7 +737,7 @@ if __name__ == '__main__':
    url = ''
    vol = 10
    position = '00:00:00'
-   timeout = 1
+   timeout = 3
    action = ''
    logLevel = logging.WARN
    compatibleOnly = False
