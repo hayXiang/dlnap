@@ -740,7 +740,7 @@ if __name__ == '__main__':
    timeout = 3
    action = ''
    logLevel = logging.WARN
-   compatibleOnly = False
+   compatibleOnly = True
    ip = ''
    proxy = False
    proxy_port = 8000
